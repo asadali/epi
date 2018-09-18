@@ -12,6 +12,25 @@ func TestReverse(t *testing.T) {
 	assert.Equal(t, "4 -> 3 -> 2 -> 1", (*rev).String())
 }
 
+func TestReverseOdd(t *testing.T) {
+	list := Create(1)
+	list = Reverse(list)
+	assert.Equal(t, (*list).String(), "1")
+
+	list = Create(3)
+	list = Reverse(list)
+	assert.Equal(t, "3 -> 2 -> 1", (*list).String())
+}
+func TestReverseEven(t *testing.T) {
+	list := Create(0)
+	list = Reverse(list)
+	assert.Nil(t, list)
+
+	list = Create(2)
+	list = Reverse(list)
+	assert.Equal(t, "2 -> 1", (*list).String())
+}
+
 func TestFindMidpoint(t *testing.T) {
 	list := Create(4)
 	mid := FindMidpoint(list)
