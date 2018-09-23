@@ -1,20 +1,36 @@
 package lists
 
 func MergeSorted(l1, l2 *Node) *Node {
-	l1curr := l1
-	l2curr := l2
-
-	var head, curr *Node
-	for l1curr != nil && l2curr != nil {
-		if l2curr.Data > l1curr.Data {
-			largernode = l2curr
-			l2curr = l2curr.Next
+	var head, smaller, prev, temp *Node
+	for l1 != nil && l2 != nil {
+		if l2.Data < l1.Data {
+			smaller = l2
+			l2 = l2.Next
 		} else {
-			largernode = l1curr
-			l1curr = l1curr.Next
+			smaller = l1
+			l1 = l1.Next
 		}
-		temp = head
-		head = largernode
-		largernode.next = temp
+		// first node
+		if prev == nil {
+			head = smaller
+			prev = smaller
+		} else {
+			if prev.Next == smaller {
+				// no linking needed
+				prev = prev.Next
+			} else {
+				temp = prev.Next
+				prev.Next = smaller
+				smaller.Next = temp
+				prev = smaller
+			}
+		}
 	}
+
+	if l1 != nil {
+		prev.Next = l1
+	} else if l2 != nil {
+		prev.Next = l2
+	}
+	return head
 }
